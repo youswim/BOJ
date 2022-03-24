@@ -1,5 +1,3 @@
-package hellojpa;
-
 import java.util.*;
 
 public class Main {
