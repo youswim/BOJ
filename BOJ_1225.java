@@ -20,7 +20,7 @@ public class Main {
         String A = st.nextToken();
         String B = st.nextToken();
 
-        long aTot = 0;
+        long aTot = 0; //long으로 하지 않으면 overflow로 오답!
         long bTot = 0;
 
         for (int i = 0; i < A.length(); i++) {
