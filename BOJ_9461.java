@@ -1,10 +1,8 @@
-package main;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Test {
+public class Main {
 
     static long[] arr; // 문제에 주어진 N의 최대 크기를 수용하려면 long를 사용해야 한다
 
