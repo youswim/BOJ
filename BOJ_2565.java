@@ -24,7 +24,7 @@ public class Main {
         }
 
         Arrays.sort(arr, Comparator.comparingInt(o -> o[0])); 
-        // 배열을 정렬하면 LIS로 풀이할 
+        // 배열을 정렬하면 LIS로 풀이할 수 있다
 
         int max = 0;
         for (int i = 0; i < N; i++) {
