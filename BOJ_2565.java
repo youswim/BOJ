@@ -23,7 +23,8 @@ public class Main {
             arr[i][1] = Integer.parseInt(str[1]);
         }
 
-        Arrays.sort(arr, Comparator.comparingInt(o -> o[0]));
+        Arrays.sort(arr, Comparator.comparingInt(o -> o[0])); 
+        // 배열을 정렬하면 LIS로 풀이할 
 
         int max = 0;
         for (int i = 0; i < N; i++) {
