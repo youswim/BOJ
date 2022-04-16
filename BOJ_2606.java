@@ -1,43 +1,53 @@
+package main;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import java.util.Scanner;
+public class Main{
+    public static void main(String[] args) throws IOException {
 
-public class Main {
-    static int cnt = 0; // 감염시킨 컴퓨터 수
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    // DFS 메소드
-    static void dfs(int[][] a, boolean[] check, int v) {
-        if(check[v]==true) return; // 재귀호출 종료 부
+        int numberNode = Integer.parseInt(br.readLine());
+        int numberLine = Integer.parseInt(br.readLine());
 
-        check[v] = true; // 방문처리 후
-        cnt++; // 감염된 컴퓨터 수 증가, 여기엔 최초 방문 1번 컴퓨터도 포함된다.
-
-        for(int i=0;i<a[v].length;i++) { // 인접행렬을 탐색
-            if(a[v][i]==1 && !check[i]) // 연결된 정점이면서 방문하지 않은 경우
-                dfs(a,check,i); // DFS 수행
-        }
-    }
-
-    public static void main(String[] args)  {
-        Scanner in = new Scanner(System.in);
-
-        int n = in.nextInt(); // 정점의 수
-        int e = in.nextInt(); // 간선의 수
-
-        int a[][] = new int[n+1][n+1]; // 그래프를 인접행렬로 표시
-        boolean check[] = new boolean[n+1]; // 정점 방문 여부 배열
-
-        for(int i=0;i<e;i++) { // 인접행렬을 통한 연결정보 저장
-            int v1 = in.nextInt();
-            int v2 = in.nextInt();
-
-            a[v1][v2] = 1;
-            a[v2][v1] = 1;
+        ArrayList<LinkedList<Integer>> lineList = new ArrayList<>(numberNode + 1);
+        for (int i = 0; i < numberNode + 1; i++) {
+            lineList.add(new LinkedList<>());
         }
 
-        dfs(a,check,1); // DFS 수행
+        String[] str;
+        for (int i = 0; i < numberLine; i++) {
+            str = br.readLine().split(" ");
+            int v1 = Integer.parseInt(str[0]);
+            int v2 = Integer.parseInt(str[1]);
+            lineList.get(v1).add(v2);
+            lineList.get(v2).add(v1);
+        }
 
-        System.out.println(cnt-1); // 1번 컴퓨터는 제외해야 하므로 -1을 해준다.
+        boolean[] visited = new boolean[numberNode + 1];
+        Queue<Integer> queue = new LinkedList<>();
 
-    }
+        int cnt = 0;
+        int startNode = 1;
+        queue.add(startNode);
+        visited[startNode] = true;
+
+        while (!queue.isEmpty()) {
+            int n = queue.poll();
+
+            for (int w : lineList.get(n)) {
+                if (!visited[w]) {
+                    queue.add(w);
+                    visited[w] = true;
+                    cnt++;
+                }
+            }
+        }
+        System.out.println(cnt);
+        }
 }
