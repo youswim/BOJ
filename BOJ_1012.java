@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-// 틀림
+
 public class Main {
 
     static int xSize;
@@ -73,7 +73,7 @@ public class Main {
         while(!queue.isEmpty()){
         Pos nowPos = queue.poll();
 
-            for (int a = 0; a < 3; a++) {
+            for (int a = 0; a < 4; a++) {
                 int searchX = nowPos.x + dx[a];
                 int searchY = nowPos.y + dy[a];
 
