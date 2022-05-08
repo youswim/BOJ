@@ -67,3 +67,58 @@ public class Main {
 		System.out.println(count);
 	}
 }
+////////////////////////////////////////////////////////////////////////////////////////////////
+package main;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] str = br.readLine().split(" ");
+
+        int N = Integer.parseInt(str[0]);
+        int M = Integer.parseInt(str[1]);
+
+        str = br.readLine().split(" ");
+        int[] arr = new int[M];
+
+        for (int i = 0; i < M; i++) {
+            arr[i] = Integer.parseInt(str[i]);
+        }
+
+        int stan = 0; // 움직인 정도를 기록한다
+        int size = N; // deque의 size
+        int tot = 0; // 최소 회전 횟수 합
+
+        for (int i = 0; i < M; i++) {
+            int now_idx = arr[i] - 1 + stan;
+            if(now_idx < 0)
+                now_idx += size;
+            else if(now_idx > size)
+                now_idx -= size;
+
+            int front = now_idx;
+            int back = size - front;
+
+            if (front <= back) { //front가 더 작은 경우
+                stan -= front; // stan에 front만큼 앞으로 움직여야 함을 기록
+                tot += front; // front로 움직이는 총 횟수를 기록
+            }
+            else { //back이 더 작은 경우
+                stan += back; // stan에 back만틈 뒤로 움직여야 함을 기록
+                tot += back; //
+            }
+            stan %= size;
+            
+            // pop한 이후
+            size--;
+            stan--;
+        }
+        System.out.println(tot);
+    }
+}
