@@ -1,69 +1,53 @@
+package main;
+
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.StringTokenizer;
- 
+
 public class Main {
- 
-	public static int[] arr;
-	
-	public static void main(String[] args) throws IOException {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		int N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-		
-		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		for(int i = 0; i < N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
-		}
-		
-		
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-		Arrays.sort(arr);
-		
-		int M = Integer.parseInt(br.readLine());
-		
-		st = new StringTokenizer(br.readLine(), " ");
-		
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < M; i++) {
-			
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
+        String[] str = br.readLine().split(" ");
 
-			if(binarySearch(Integer.parseInt(st.nextToken())) >= 0) {
-				sb.append(1).append('\n');
-			}
-			else {
-				sb.append(0).append('\n');
-			}
-		}
-		System.out.println(sb);
-	}
-	
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(str[i]);
+        }
 
-	public static int binarySearch(int key) {
- 
-		int lo = 0;	
-		int hi = arr.length - 1;	
-		while(lo <= hi) {
- 
-			int mid = (lo + hi) / 2;
- 
-			if(key < arr[mid]) {
-				hi = mid - 1;
-			}
-			else if(key > arr[mid]) {
-				lo = mid + 1;
-			}
-			else {
-				return mid;
-			}
-		}
- 
-		return -1;
- 
-	}
+        int M = Integer.parseInt(br.readLine());
+        int[] findArr = new int[M];
+        str = br.readLine().split(" ");
+
+        for (int i = 0; i < M; i++) {
+            findArr[i] = Integer.parseInt(str[i]);
+        }
+
+        Arrays.sort(arr);
+
+        for (int i = 0; i < M; i++) {
+            int start = 0;
+            int end = N - 1;
+            int key = findArr[i];
+            int mid;
+            int chk = 0;
+            while (start <= end) {
+                // arr에 key값이 없다면, start와 end값이 역전되는 순간이 생긴다
+                mid = (start + end) / 2;
+                if (key < arr[mid]) {
+                    end = mid - 1;
+                } else if (key > arr[mid]) {
+                    start = mid + 1;
+                } else {
+                    chk = 1;
+                    break;
+                }
+            }
+            sb.append(chk).append("\n");
+        }
+        System.out.println(sb);
+    }
 }
- 
